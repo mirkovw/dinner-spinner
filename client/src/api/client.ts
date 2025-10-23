@@ -18,4 +18,12 @@ export const api = {
     if (!response.ok) throw new Error('API request failed');
     return response.json();
   },
+
+  async delete(endpoint: string) {
+    const response = await fetch(`${API_URL}${endpoint}`, {
+      method: 'DELETE',
+    });
+    if (!response.ok) throw new Error('API request failed');
+    return response.json();
+  },
 };

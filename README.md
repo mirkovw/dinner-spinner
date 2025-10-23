@@ -1,16 +1,15 @@
-# React + Express + MongoDB Boilerplate
+# Dinner Spinner
 
-A modern, production-ready full-stack boilerplate with TypeScript, React, Express, and MongoDB. Optimized for Vercel deployment with serverless functions.
+A fun full-stack web app that helps you decide what to eat! Built with TypeScript, React, Express, and MongoDB. Can't decide on dinner? Just spin the wheel and let fate decide!
 
 ## Features
 
-- **Frontend**: React 19 with Vite, TypeScript, and Tailwind CSS
-- **Backend**: Express API with TypeScript and MongoDB (Mongoose)
-- **Development**: Hot reload for both client and server
-- **Code Quality**: ESLint + Prettier with pre-configured rules
-- **Deployment**: Ready for Vercel with optimized serverless configuration
-- **Type Safety**: Full TypeScript support across the stack
-- **Database**: MongoDB with connection caching for serverless environments
+- **Dinner Spinner**: Animated wheel that randomly selects a dish from your database
+- **Dish Management**: Add, view, and delete dishes with ease
+- **Beautiful UI**: Modern, responsive design with gradient backgrounds and smooth animations
+- **Full-Stack TypeScript**: Type-safe code from frontend to backend
+- **MongoDB Database**: Persistent storage for all your favorite dishes
+- **Serverless Ready**: Optimized for Vercel deployment
 
 ## Tech Stack
 
@@ -72,9 +71,25 @@ This starts:
 
 The Vite dev server proxies API requests to the Express backend, so you can call `/api/health` from your frontend code.
 
-### 4. Verify Setup
+### 4. Seed the Database (Optional)
 
-Open `http://localhost:5173` in your browser. You should see the API health status displayed, confirming that both frontend and backend are running correctly.
+To populate your database with sample dishes:
+
+```bash
+cd api
+npm run seed
+cd ..
+```
+
+This will add 10 sample dishes including Italian, Indian, Mexican, Thai, and more cuisines.
+
+### 5. Start Using the Dinner Spinner
+
+Open `http://localhost:5173` in your browser. You'll see:
+- A spinning wheel interface
+- A big "SPIN FOR DINNER!" button
+- Your list of dishes below
+- Options to add or delete dishes
 
 ## Available Scripts
 
@@ -96,6 +111,7 @@ Open `http://localhost:5173` in your browser. You should see the API health stat
 
 | Command | Description |
 |---------|-------------|
+| `npm run seed` | Seed database with sample dishes |
 | `npm run lint` | Lint API TypeScript files |
 | `npm run format` | Format API code |
 
@@ -136,13 +152,13 @@ Open `http://localhost:5173` in your browser. You should see the API health stat
 
 ## API Endpoints
 
-The boilerplate includes example endpoints:
+The app provides the following endpoints:
 
 - `GET /api/health` - Health check with database status
-- `GET /api/hello` - Simple hello endpoint
-- `POST /api/data` - Example POST endpoint that echoes data
-
-Add your own endpoints in `api/index.ts`.
+- `GET /api/dishes` - Get all dishes from database
+- `GET /api/dishes/random` - Get a random dish
+- `POST /api/dishes` - Add a new dish (requires `name`, optional `description` and `cuisine`)
+- `DELETE /api/dishes/:id` - Delete a dish by ID
 
 ## Deployment to Vercel
 
