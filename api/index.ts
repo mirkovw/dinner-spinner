@@ -2,6 +2,7 @@ import express, { Request, Response } from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import { connectDB } from './db.js';
+import { Dish } from './models/Dish.js';
 
 dotenv.config();
 
@@ -52,17 +53,67 @@ app.get('/api/health', async (req: Request, res: Response) => {
   }
 });
 
-// Example API endpoint
-app.get('/api/hello', async (req: Request, res: Response) => {
-  await connectDB();
-  res.json({ message: 'Hello from the API!' });
+// Get all dishes
+app.get('/api/dishes', async (req: Request, res: Response) => {
+  try {
+    await connectDB();
+    const dishes = await Dish.find().sort({ createdAt: -1 });
+    res.json(dishes);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch dishes' });
+  }
 });
 
-// Example POST endpoint
-app.post('/api/data', async (req: Request, res: Response) => {
-  await connectDB();
-  const { data } = req.body;
-  res.json({ received: data, timestamp: new Date() });
+// Get a random dish
+app.get('/api/dishes/random', async (req: Request, res: Response) => {
+  try {
+    await connectDB();
+    const count = await Dish.countDocuments();
+
+    if (count === 0) {
+      return res.status(404).json({ error: 'No dishes found in database' });
+    }
+
+    const random = Math.floor(Math.random() * count);
+    const dish = await Dish.findOne().skip(random);
+    res.json(dish);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch random dish' });
+  }
+});
+
+// Add a new dish
+app.post('/api/dishes', async (req: Request, res: Response) => {
+  try {
+    await connectDB();
+    const { name, description, cuisine } = req.body;
+
+    if (!name) {
+      return res.status(400).json({ error: 'Dish name is required' });
+    }
+
+    const dish = new Dish({ name, description, cuisine });
+    await dish.save();
+    res.status(201).json(dish);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to create dish' });
+  }
+});
+
+// Delete a dish
+app.delete('/api/dishes/:id', async (req: Request, res: Response) => {
+  try {
+    await connectDB();
+    const dish = await Dish.findByIdAndDelete(req.params.id);
+
+    if (!dish) {
+      return res.status(404).json({ error: 'Dish not found' });
+    }
+
+    res.json({ message: 'Dish deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to delete dish' });
+  }
 });
 
 // 404 handler
