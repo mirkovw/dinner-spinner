@@ -90,9 +90,9 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-pink-50 to-orange-50 p-4 md:p-8">
+    <div className="min-h-screen bg-gradient-to-br from-red-50 via-rose-50 to-orange-50 p-4 md:p-8">
       <div className="max-w-4xl mx-auto">
-        <h1 className="text-5xl md:text-6xl font-bold text-center mb-2 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+        <h1 className="text-5xl md:text-6xl font-bold text-center mb-2 bg-gradient-to-r from-red-600 to-rose-600 bg-clip-text text-transparent">
           Dinner Spinner
         </h1>
         <p className="text-center text-gray-600 mb-8">Can't decide what to eat? Let fate decide!</p>
@@ -102,13 +102,13 @@ function App() {
           <div className="flex flex-col items-center">
             <div className="relative w-64 h-64 mb-8">
               <div className={`absolute inset-0 flex items-center justify-center ${spinning ? 'animate-spin' : ''}`}>
-                <div className="w-48 h-48 rounded-full bg-gradient-to-br from-purple-400 to-pink-400 flex items-center justify-center shadow-lg">
+                <div className="w-48 h-48 rounded-full bg-gradient-to-br from-red-400 to-rose-400 flex items-center justify-center shadow-lg">
                   <div className="w-40 h-40 rounded-full bg-white flex items-center justify-center">
                     {selectedDish ? (
                       <div className="text-center p-4">
                         <p className="text-2xl font-bold text-gray-800">{selectedDish.name}</p>
                         {selectedDish.cuisine && (
-                          <p className="text-sm text-purple-600 mt-2">{selectedDish.cuisine}</p>
+                          <p className="text-sm text-red-600 mt-2">{selectedDish.cuisine}</p>
                         )}
                       </div>
                     ) : (
@@ -128,7 +128,7 @@ function App() {
             <button
               onClick={spinForDinner}
               disabled={spinning || dishes.length === 0}
-              className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-12 py-4 rounded-full text-xl font-bold hover:from-purple-700 hover:to-pink-700 transition-all transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none shadow-lg"
+              className="bg-gradient-to-r from-red-600 to-rose-600 text-white px-12 py-4 rounded-full text-xl font-bold hover:from-red-700 hover:to-rose-700 transition-all transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none shadow-lg"
             >
               {spinning ? 'Spinning...' : 'SPIN FOR DINNER!'}
             </button>
@@ -143,7 +143,7 @@ function App() {
             </h2>
             <button
               onClick={() => setShowForm(!showForm)}
-              className="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition-colors"
+              className="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors"
             >
               {showForm ? 'Cancel' : '+ Add Dish'}
             </button>
@@ -151,14 +151,14 @@ function App() {
 
           {/* Add Dish Form */}
           {showForm && (
-            <form onSubmit={addDish} className="mb-6 p-4 bg-purple-50 rounded-lg">
+            <form onSubmit={addDish} className="mb-6 p-4 bg-red-50 rounded-lg">
               <div className="space-y-3">
                 <input
                   type="text"
                   placeholder="Dish name *"
                   value={newDish.name}
                   onChange={(e) => setNewDish({ ...newDish, name: e.target.value })}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
                   required
                 />
                 <input
@@ -166,18 +166,18 @@ function App() {
                   placeholder="Description (optional)"
                   value={newDish.description}
                   onChange={(e) => setNewDish({ ...newDish, description: e.target.value })}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
                 />
                 <input
                   type="text"
                   placeholder="Cuisine type (optional)"
                   value={newDish.cuisine}
                   onChange={(e) => setNewDish({ ...newDish, cuisine: e.target.value })}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
                 />
                 <button
                   type="submit"
-                  className="w-full bg-purple-600 text-white py-2 rounded-lg hover:bg-purple-700 transition-colors font-semibold"
+                  className="w-full bg-red-600 text-white py-2 rounded-lg hover:bg-red-700 transition-colors font-semibold"
                 >
                   Add Dish
                 </button>
@@ -204,7 +204,7 @@ function App() {
                       <p className="text-sm text-gray-600">{dish.description}</p>
                     )}
                     {dish.cuisine && (
-                      <span className="inline-block mt-1 text-xs px-2 py-1 bg-purple-100 text-purple-700 rounded">
+                      <span className="inline-block mt-1 text-xs px-2 py-1 bg-red-100 text-red-700 rounded">
                         {dish.cuisine}
                       </span>
                     )}
